@@ -2,9 +2,11 @@ version: "3"
 
 services:
   strapi:
-    image: strapi/strapi
-    container_name: strapi  
-    restart: always    
+    image: naskio/strapi
+    environment:
+      NODE_ENV: development
+    container_name: strapi
+    restart: always
     ports:
       - 1337:1337
     volumes:
@@ -13,7 +15,7 @@ services:
       - mongodb
     env_file:
       - ./.env
-  
+
   mongodb:
     image: mongo
     container_name: db
@@ -24,10 +26,9 @@ services:
       - ./data:/data/db
     env_file:
       - ./.env
-    
 
   nginx:
-    build: 
+    build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
     container_name: nginx
